@@ -35,17 +35,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MyModelScreen(modifier: Modifier = Modifier, viewModel: MyModelViewModel) {
+fun MyModelScreen(modifier: Modifier = Modifier, navHostController: NavHostController, viewModel: MyModelViewModel) {
     val items by viewModel.uiState.collectAsStateWithLifecycle()
     if (items is Success) {
         MyModelScreen(
             items = (items as Success).data,
             onSave = { name -> viewModel.addMyModel(name) },
-            modifier = modifier
+            modifier = modifier,
+            navigateTo = {
+                navHostController.navigate(it)
+            }
         )
     }
 }
@@ -54,12 +58,26 @@ fun MyModelScreen(modifier: Modifier = Modifier, viewModel: MyModelViewModel) {
 internal fun MyModelScreen(
     items: List<String>,
     onSave: (name: String) -> Unit,
+    navigateTo: (screen: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
         var nameMyModel by remember { mutableStateOf("Compose") }
         Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp)
+        ) {
+            Button(modifier = Modifier.width(120.dp), onClick = {
+                navigateTo("list")
+            }) {
+                Text("Go to List")
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TextField(
@@ -83,7 +101,7 @@ internal fun MyModelScreen(
 @Composable
 private fun DefaultPreview() {
     MyApplicationTheme {
-        MyModelScreen(listOf("Compose", "Room", "Kotlin"), onSave = {})
+        MyModelScreen(listOf("Compose", "Room", "Kotlin"), onSave = {}, {})
     }
 }
 
@@ -91,6 +109,6 @@ private fun DefaultPreview() {
 @Composable
 private fun PortraitPreview() {
     MyApplicationTheme {
-        MyModelScreen(listOf("Compose", "Room", "Kotlin"), onSave = {})
+        MyModelScreen(listOf("Compose", "Room", "Kotlin"), onSave = {}, {})
     }
 }

@@ -25,6 +25,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import android.template.core.ui.MyApplicationTheme
+import android.template.feature.mylist.MyListViewModel
 import android.template.feature.mymodel.ui.MyModelViewModel
 import androidx.activity.viewModels
 
@@ -32,6 +33,7 @@ import androidx.activity.viewModels
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MyModelViewModel by viewModels { MyModelViewModel.Factory }
+    private val listViewModel: MyListViewModel by viewModels { MyListViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainNavigation(viewModel)
+                    MainNavigation(viewModel, listViewModel)
                 }
             }
         }

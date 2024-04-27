@@ -72,7 +72,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -83,6 +83,7 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-ui"))
     implementation(project(":feature-mymodel"))
+    implementation(project(":feature-mylist"))
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)

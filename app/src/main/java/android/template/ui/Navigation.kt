@@ -16,6 +16,8 @@
 
 package android.template.ui
 
+import android.template.feature.mylist.MyListScreen
+import android.template.feature.mylist.MyListViewModel
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,11 +29,14 @@ import android.template.feature.mymodel.ui.MyModelScreen
 import android.template.feature.mymodel.ui.MyModelViewModel
 
 @Composable
-fun MainNavigation(viewModel: MyModelViewModel) {
+fun MainNavigation(viewModel: MyModelViewModel, listViewModel: MyListViewModel) {
     val navController = rememberNavController()
 
+    //https://developer.android.com/develop/ui/compose/navigation
     NavHost(navController = navController, startDestination = "main") {
-        composable("main") { MyModelScreen(modifier = Modifier.padding(16.dp), viewModel) }
+        composable("main") { MyModelScreen(modifier = Modifier.padding(16.dp),
+            navController, viewModel) }
         // TODO: Add more destinations
+        composable("list") { MyListScreen(modifier = Modifier.padding(16.dp), listViewModel) }
     }
 }
