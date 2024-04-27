@@ -1,0 +1,34 @@
+digraph {
+  graph [label="architecture-templates-steps\n ",labelloc=t,fontsize=30,ranksep=1.4];
+  node [style=filled, fillcolor="#bbbbbb"];
+  rankdir=TB;
+
+  # Projects
+
+  ":app" [fillcolor="#baffc9"];
+  ":core-data" [fillcolor="#baffc9"];
+  ":core-database" [fillcolor="#baffc9"];
+  ":core-ui" [fillcolor="#baffc9"];
+  ":feature-mylist" [fillcolor="#baffc9"];
+  ":feature-mymodel" [fillcolor="#baffc9"];
+
+  {rank = same;}
+
+  # Dependencies
+
+  ":app" -> ":app"
+  ":app" -> ":core-data" [style=dotted]
+  ":app" -> ":core-ui" [style=dotted]
+  ":app" -> ":feature-mymodel" [style=dotted]
+  ":app" -> ":feature-mylist" [style=dotted]
+  ":feature-mymodel" -> ":feature-mymodel"
+  ":feature-mymodel" -> ":core-data" [style=dotted]
+  ":feature-mymodel" -> ":core-ui" [style=dotted]
+  ":feature-mylist" -> ":feature-mylist"
+  ":feature-mylist" -> ":core-data" [style=dotted]
+  ":feature-mylist" -> ":core-ui" [style=dotted]
+  ":core-ui" -> ":core-ui"
+  ":core-data" -> ":core-data"
+  ":core-data" -> ":core-database" [style=dotted]
+  ":core-database" -> ":core-database"
+}

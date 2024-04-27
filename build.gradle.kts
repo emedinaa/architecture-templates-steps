@@ -15,3 +15,6 @@
  */
 
 // Root build.gradle.kts
+//apply from :"graph/build.gradle"
+//apply("graph/build.gradle.kts")
+apply("graph/build.gradle")
